@@ -1,36 +1,56 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Morgan State University — IT Support Tool
 
-## Getting Started
+A full-stack IT self-service web portal for Morgan State University. Students, staff, and faculty can search for common IT issues and get step-by-step resolution guides without visiting the IT Help Desk.
 
-First, run the development server:
+## Tech Stack
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **Frontend:** Next.js 14 (App Router) + Tailwind CSS
+- **Backend:** Next.js API Routes (serverless)
+- **Database:** PostgreSQL via `pg`
+- **Deployment:** Vercel
+- **DB Hosting:** Neon.tech (free tier)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Local Setup
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. Clone the repo:
+   ```bash
+   git clone https://github.com/obwoj1/morgan-it-portal.git
+   cd morgan-it-portal
+   ```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-## Learn More
+3. Create `.env.local` and add your PostgreSQL connection string:
+   ```
+   DATABASE_URL=your_postgres_connection_string_here
+   ```
+   Get a free database at [neon.tech](https://neon.tech).
 
-To learn more about Next.js, take a look at the following resources:
+4. Seed the database:
+   ```bash
+   npx ts-node data/seed.ts
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+5. Run the dev server:
+   ```bash
+   npm run dev
+   ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+   Visit [http://localhost:3000](http://localhost:3000)
 
-## Deploy on Vercel
+## Deployment
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. Push to GitHub (`obwoj1/morgan-it-portal`)
+2. Go to [vercel.com](https://vercel.com) → New Project → Import from GitHub
+3. Select `morgan-it-portal`
+4. Add `DATABASE_URL` environment variable in Vercel project settings
+5. Click Deploy
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Live site: [morgan-it-portal.vercel.app](https://morgan-it-portal.vercel.app) *(update once deployed)*
+
+## Screenshots
+
+*(Add screenshots here)*

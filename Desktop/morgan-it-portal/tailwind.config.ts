@@ -9,8 +9,12 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        "morgan-blue": "#003366",
+        "morgan-orange": "#FF6600",
+      },
+      fontFamily: {
+        heading: ["Merriweather", "serif"],
+        body: ["Source Sans 3", "sans-serif"],
       },
     },
   },

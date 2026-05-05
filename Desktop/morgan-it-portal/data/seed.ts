@@ -63,17 +63,17 @@ async function seed() {
     const issues = [
       {
         category: "passwords-login",
-        title: "Reset MyMorgan Password",
-        slug: "reset-mymorgan-password",
-        summary: "Can't log into MyMorgan? Reset your password here.",
-        keywords: ["password", "mymorgan", "login", "forgot", "reset", "portal"],
+        title: "Reset myMSU Password",
+        slug: "reset-mymsu-password",
+        summary: "Can't log into myMSU? Reset your password here.",
+        keywords: ["password", "mymsu", "login", "forgot", "reset", "portal"],
         steps: [
-          { n: 1, instruction: "Go to mymorgan.morgan.edu", note: null },
+          { n: 1, instruction: "Go to morgan.edu", note: null },
           { n: 2, instruction: 'Click "Forgot Password?" below the login form', note: null },
           { n: 3, instruction: "Enter your Morgan State email address (e.g. obwoj1@morgan.edu)", note: null },
           { n: 4, instruction: "Check your personal (non-Morgan) email for a reset link — check spam if not found", note: "The reset email may take up to 5 minutes to arrive." },
           { n: 5, instruction: "Click the link and create a new password (min 8 characters, 1 uppercase, 1 number)", note: null },
-          { n: 6, instruction: "Return to MyMorgan and log in with your new password", note: null },
+          { n: 6, instruction: "Return to myMSU and log in with your new password", note: null },
         ],
       },
       {
@@ -85,7 +85,7 @@ async function seed() {
         steps: [
           { n: 1, instruction: "Make sure you are using your Morgan State username (not your full email) — e.g. obwoj1", note: null },
           { n: 2, instruction: "Your default password is your student ID number if you have never changed it", note: null },
-          { n: 3, instruction: "If that fails, your lab password is tied to your MyMorgan password — reset it at mymorgan.morgan.edu", note: null },
+          { n: 3, instruction: "If that fails, your lab password is tied to your myMSU password — reset it at morgan.edu", note: null },
           { n: 4, instruction: "Wait 15 minutes after a password reset before trying to log into a lab computer (sync delay)", note: null },
           { n: 5, instruction: "If the computer is frozen or showing a black screen, hold the power button for 10 seconds to restart", note: null },
           { n: 6, instruction: "If you are still locked out, call the IT Help Desk: (443) 885-3838", note: null },
@@ -100,7 +100,7 @@ async function seed() {
         steps: [
           { n: 1, instruction: "On your device, open WiFi settings and select Eduroam", note: null },
           { n: 2, instruction: "When prompted for credentials, enter your full Morgan email (e.g. obwoj1@morgan.edu) as the username", note: null },
-          { n: 3, instruction: "Enter your MyMorgan password as the password", note: null },
+          { n: 3, instruction: "Enter your myMSU password as the password", note: null },
           { n: 4, instruction: "If prompted for a certificate or identity, accept/trust the Morgan State certificate", note: "On Android, set EAP method to PEAP and Phase 2 to MSCHAPV2 if prompted." },
           { n: 5, instruction: "You should now be connected — open a browser and verify", note: null },
         ],
@@ -126,7 +126,7 @@ async function seed() {
         summary: "First-time setup for Duo two-factor authentication.",
         keywords: ["duo", "mfa", "2fa", "two factor", "authentication", "phone", "setup"],
         steps: [
-          { n: 1, instruction: "Go to mymorgan.morgan.edu and log in", note: null },
+          { n: 1, instruction: "Go to morgan.edu and log in", note: null },
           { n: 2, instruction: "You will be prompted to enroll in Duo — click Start Setup", note: null },
           { n: 3, instruction: "Select Mobile Phone as your device type", note: null },
           { n: 4, instruction: "Enter your phone number and confirm it", note: null },
@@ -145,7 +145,7 @@ async function seed() {
         steps: [
           { n: 1, instruction: "Go to outlook.office.com", note: null },
           { n: 2, instruction: "Enter your full Morgan email (e.g. obwoj1@morgan.edu)", note: null },
-          { n: 3, instruction: "You will be redirected to Morgan's login page — enter your MyMorgan password", note: null },
+          { n: 3, instruction: "You will be redirected to Morgan's login page — enter your myMSU password", note: null },
           { n: 4, instruction: "Complete Duo MFA if prompted", note: null },
           { n: 5, instruction: "Your inbox will load — bookmark this page for easy access", note: null },
           { n: 6, instruction: "To install Office apps (Word, Excel, etc.), click your profile icon → My Account → Apps & devices", note: null },

@@ -40,7 +40,7 @@ const MOCK_CATEGORIES: Category[] = [
 ];
 
 const MOCK_ISSUES: Issue[] = [
-  { id: 1, category_id: 1, category_name: "Passwords & Login", category_slug: "passwords-login", title: "Reset MyMorgan Password", slug: "reset-mymorgan-password", summary: "Can't log into MyMorgan? Reset your password here.", keywords: ["password", "mymorgan", "login", "forgot", "reset"], created_at: "" },
+  { id: 1, category_id: 1, category_name: "Passwords & Login", category_slug: "passwords-login", title: "Reset myMSU Password", slug: "reset-mymsu-password", summary: "Can't log into myMSU? Reset your password here.", keywords: ["password", "mymsu", "login", "forgot", "reset"], created_at: "" },
   { id: 2, category_id: 2, category_name: "Computer Labs", category_slug: "computer-labs", title: "Can't Log Into a Lab Computer", slug: "cant-log-into-lab-computer", summary: "Locked out of a campus computer lab machine?", keywords: ["lab", "computer", "login", "locked"], created_at: "" },
   { id: 3, category_id: 3, category_name: "Campus WiFi", category_slug: "campus-wifi", title: "Connect to MSU WiFi (Eduroam)", slug: "connect-to-eduroam", summary: "How to connect to Eduroam, the main campus WiFi network.", keywords: ["wifi", "eduroam", "wireless"], created_at: "" },
   { id: 4, category_id: 3, category_name: "Campus WiFi", category_slug: "campus-wifi", title: "Connect to MSU-Guest WiFi", slug: "connect-to-msu-guest", summary: "Temporary WiFi access for visitors or when Eduroam isn't working.", keywords: ["wifi", "guest", "visitor"], created_at: "" },
@@ -50,18 +50,18 @@ const MOCK_ISSUES: Issue[] = [
 ];
 
 const MOCK_STEPS: Record<string, Step[]> = {
-  "reset-mymorgan-password": [
-    { id: 1, issue_id: 1, step_number: 1, instruction: "Go to mymorgan.morgan.edu", note: null },
+  "reset-mymsu-password": [
+    { id: 1, issue_id: 1, step_number: 1, instruction: "Go to morgan.edu", note: null },
     { id: 2, issue_id: 1, step_number: 2, instruction: 'Click "Forgot Password?" below the login form', note: null },
     { id: 3, issue_id: 1, step_number: 3, instruction: "Enter your Morgan State email address (e.g. obwoj1@morgan.edu)", note: null },
     { id: 4, issue_id: 1, step_number: 4, instruction: "Check your personal (non-Morgan) email for a reset link — check spam if not found", note: "The reset email may take up to 5 minutes to arrive." },
     { id: 5, issue_id: 1, step_number: 5, instruction: "Click the link and create a new password (min 8 characters, 1 uppercase, 1 number)", note: null },
-    { id: 6, issue_id: 1, step_number: 6, instruction: "Return to MyMorgan and log in with your new password", note: null },
+    { id: 6, issue_id: 1, step_number: 6, instruction: "Return to myMSU and log in with your new password", note: null },
   ],
   "cant-log-into-lab-computer": [
     { id: 7, issue_id: 2, step_number: 1, instruction: "Make sure you are using your Morgan State username (not your full email) — e.g. obwoj1", note: null },
     { id: 8, issue_id: 2, step_number: 2, instruction: "Your default password is your student ID number if you have never changed it", note: null },
-    { id: 9, issue_id: 2, step_number: 3, instruction: "If that fails, your lab password is tied to your MyMorgan password — reset it at mymorgan.morgan.edu", note: null },
+    { id: 9, issue_id: 2, step_number: 3, instruction: "If that fails, your lab password is tied to your myMSU password — reset it at morgan.edu", note: null },
     { id: 10, issue_id: 2, step_number: 4, instruction: "Wait 15 minutes after a password reset before trying to log into a lab computer (sync delay)", note: null },
     { id: 11, issue_id: 2, step_number: 5, instruction: "If the computer is frozen or showing a black screen, hold the power button for 10 seconds to restart", note: null },
     { id: 12, issue_id: 2, step_number: 6, instruction: "If you are still locked out, call the IT Help Desk: (443) 885-3838", note: null },
@@ -69,7 +69,7 @@ const MOCK_STEPS: Record<string, Step[]> = {
   "connect-to-eduroam": [
     { id: 13, issue_id: 3, step_number: 1, instruction: "On your device, open WiFi settings and select Eduroam", note: null },
     { id: 14, issue_id: 3, step_number: 2, instruction: "Enter your full Morgan email (e.g. obwoj1@morgan.edu) as the username", note: null },
-    { id: 15, issue_id: 3, step_number: 3, instruction: "Enter your MyMorgan password as the password", note: null },
+    { id: 15, issue_id: 3, step_number: 3, instruction: "Enter your myMSU password as the password", note: null },
     { id: 16, issue_id: 3, step_number: 4, instruction: "If prompted for a certificate or identity, accept/trust the Morgan State certificate", note: "On Android, set EAP method to PEAP and Phase 2 to MSCHAPV2 if prompted." },
     { id: 17, issue_id: 3, step_number: 5, instruction: "You should now be connected — open a browser and verify", note: null },
   ],
@@ -81,7 +81,7 @@ const MOCK_STEPS: Record<string, Step[]> = {
     { id: 22, issue_id: 4, step_number: 5, instruction: "Enter the code on the sign-in page", note: null },
   ],
   "setup-duo-mfa": [
-    { id: 23, issue_id: 5, step_number: 1, instruction: "Go to mymorgan.morgan.edu and log in", note: null },
+    { id: 23, issue_id: 5, step_number: 1, instruction: "Go to morgan.edu and log in", note: null },
     { id: 24, issue_id: 5, step_number: 2, instruction: "You will be prompted to enroll in Duo — click Start Setup", note: null },
     { id: 25, issue_id: 5, step_number: 3, instruction: "Select Mobile Phone as your device type", note: null },
     { id: 26, issue_id: 5, step_number: 4, instruction: "Enter your phone number and confirm it", note: null },
@@ -93,7 +93,7 @@ const MOCK_STEPS: Record<string, Step[]> = {
   "access-morgan-student-email": [
     { id: 31, issue_id: 6, step_number: 1, instruction: "Go to outlook.office.com", note: null },
     { id: 32, issue_id: 6, step_number: 2, instruction: "Enter your full Morgan email (e.g. obwoj1@morgan.edu)", note: null },
-    { id: 33, issue_id: 6, step_number: 3, instruction: "You will be redirected to Morgan's login page — enter your MyMorgan password", note: null },
+    { id: 33, issue_id: 6, step_number: 3, instruction: "You will be redirected to Morgan's login page — enter your myMSU password", note: null },
     { id: 34, issue_id: 6, step_number: 4, instruction: "Complete Duo MFA if prompted", note: null },
     { id: 35, issue_id: 6, step_number: 5, instruction: "Your inbox will load — bookmark this page for easy access", note: null },
     { id: 36, issue_id: 6, step_number: 6, instruction: "To install Office apps (Word, Excel, etc.), click your profile icon → My Account → Apps & devices", note: null },

@@ -42,8 +42,8 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
           <p className="text-gray-500 mb-2">No results found for &quot;{q}&quot;.</p>
           <p className="text-gray-400 text-sm">
             Need more help? Call the IT Help Desk:{" "}
-            <a href="tel:4438853838" className="text-morgan-orange font-semibold">
-              (443) 885-3838
+            <a href="tel:4438854357" className="text-morgan-orange font-semibold">
+              (443) 885-4357
             </a>
           </p>
         </div>

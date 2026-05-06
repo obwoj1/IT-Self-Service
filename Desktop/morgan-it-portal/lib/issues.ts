@@ -34,7 +34,7 @@ const MOCK_CATEGORIES: Category[] = [
   { id: 1, name: "Passwords & Login", slug: "passwords-login", icon: "🔐", description: "Reset passwords and fix login issues", issue_count: 1 },
   { id: 2, name: "Computer Labs", slug: "computer-labs", icon: "🖥️", description: "Lab computer access and problems", issue_count: 1 },
   { id: 3, name: "Campus WiFi", slug: "campus-wifi", icon: "📶", description: "Connect to MSU networks", issue_count: 2 },
-  { id: 4, name: "Email & Microsoft 365", slug: "email-m365", icon: "📧", description: "Morgan email and Office apps", issue_count: 1 },
+  { id: 4, name: "Email & Google Workspace", slug: "email-google", icon: "📧", description: "Morgan Gmail and Google tools", issue_count: 1 },
   { id: 5, name: "Duo & MFA", slug: "duo-mfa", icon: "📱", description: "Multi-factor authentication setup", issue_count: 1 },
   { id: 6, name: "Printing", slug: "printing", icon: "🖨️", description: "Print on campus", issue_count: 1 },
 ];
@@ -45,14 +45,14 @@ const MOCK_ISSUES: Issue[] = [
   { id: 3, category_id: 3, category_name: "Campus WiFi", category_slug: "campus-wifi", title: "Connect to MSU WiFi (Eduroam)", slug: "connect-to-eduroam", summary: "How to connect to Eduroam, the main campus WiFi network.", keywords: ["wifi", "eduroam", "wireless"], created_at: "" },
   { id: 4, category_id: 3, category_name: "Campus WiFi", category_slug: "campus-wifi", title: "Connect to MSU-Guest WiFi", slug: "connect-to-msu-guest", summary: "Temporary WiFi access for visitors or when Eduroam isn't working.", keywords: ["wifi", "guest", "visitor"], created_at: "" },
   { id: 5, category_id: 5, category_name: "Duo & MFA", category_slug: "duo-mfa", title: "Set Up Duo MFA", slug: "setup-duo-mfa", summary: "First-time setup for Duo two-factor authentication.", keywords: ["duo", "mfa", "2fa", "authentication"], created_at: "" },
-  { id: 6, category_id: 4, category_name: "Email & Microsoft 365", category_slug: "email-m365", title: "Access Morgan Student Email", slug: "access-morgan-student-email", summary: "How to log into your Morgan State Microsoft 365 email account.", keywords: ["email", "outlook", "microsoft", "m365"], created_at: "" },
+  { id: 6, category_id: 4, category_name: "Email & Google Workspace", category_slug: "email-google", title: "Access Morgan Student Email", slug: "access-morgan-student-email", summary: "How to log into your Morgan State Gmail (Google Workspace) account.", keywords: ["email", "gmail", "google", "student email", "google workspace"], created_at: "" },
   { id: 7, category_id: 6, category_name: "Printing", category_slug: "printing", title: "Print on Campus", slug: "print-on-campus", summary: "How to print from your laptop or a lab computer on campus.", keywords: ["print", "printing", "papercut"], created_at: "" },
 ];
 
 const MOCK_STEPS: Record<string, Step[]> = {
   "reset-mymsu-password": [
-    { id: 1, issue_id: 1, step_number: 1, instruction: "Go to morgan.edu", note: null },
-    { id: 2, issue_id: 1, step_number: 2, instruction: 'Click "Forgot Password?" below the login form', note: null },
+    { id: 1, issue_id: 1, step_number: 1, instruction: "Go to mypassword.morgan.edu", note: null },
+    { id: 2, issue_id: 1, step_number: 2, instruction: "Click \"Forgot Password?\" or \"Reset Password\" on the page", note: null },
     { id: 3, issue_id: 1, step_number: 3, instruction: "Enter your Morgan State email address (e.g. obwoj1@morgan.edu)", note: null },
     { id: 4, issue_id: 1, step_number: 4, instruction: "Check your personal (non-Morgan) email for a reset link — check spam if not found", note: "The reset email may take up to 5 minutes to arrive." },
     { id: 5, issue_id: 1, step_number: 5, instruction: "Click the link and create a new password (min 8 characters, 1 uppercase, 1 number)", note: null },
@@ -61,10 +61,10 @@ const MOCK_STEPS: Record<string, Step[]> = {
   "cant-log-into-lab-computer": [
     { id: 7, issue_id: 2, step_number: 1, instruction: "Make sure you are using your Morgan State username (not your full email) — e.g. obwoj1", note: null },
     { id: 8, issue_id: 2, step_number: 2, instruction: "Your default password is your student ID number if you have never changed it", note: null },
-    { id: 9, issue_id: 2, step_number: 3, instruction: "If that fails, your lab password is tied to your myMSU password — reset it at morgan.edu", note: null },
+    { id: 9, issue_id: 2, step_number: 3, instruction: "If that fails, your lab password is tied to your myMSU password — reset it at mypassword.morgan.edu", note: null },
     { id: 10, issue_id: 2, step_number: 4, instruction: "Wait 15 minutes after a password reset before trying to log into a lab computer (sync delay)", note: null },
     { id: 11, issue_id: 2, step_number: 5, instruction: "If the computer is frozen or showing a black screen, hold the power button for 10 seconds to restart", note: null },
-    { id: 12, issue_id: 2, step_number: 6, instruction: "If you are still locked out, call the IT Help Desk: (443) 885-3838", note: null },
+    { id: 12, issue_id: 2, step_number: 6, instruction: "If you are still locked out, call the IT Help Desk: (443) 885-4357", note: null },
   ],
   "connect-to-eduroam": [
     { id: 13, issue_id: 3, step_number: 1, instruction: "On your device, open WiFi settings and select Eduroam", note: null },
@@ -91,12 +91,12 @@ const MOCK_STEPS: Record<string, Step[]> = {
     { id: 30, issue_id: 5, step_number: 8, instruction: "Click Continue — Duo is now active on your account", note: null },
   ],
   "access-morgan-student-email": [
-    { id: 31, issue_id: 6, step_number: 1, instruction: "Go to outlook.office.com", note: null },
-    { id: 32, issue_id: 6, step_number: 2, instruction: "Enter your full Morgan email (e.g. obwoj1@morgan.edu)", note: null },
-    { id: 33, issue_id: 6, step_number: 3, instruction: "You will be redirected to Morgan's login page — enter your myMSU password", note: null },
-    { id: 34, issue_id: 6, step_number: 4, instruction: "Complete Duo MFA if prompted", note: null },
-    { id: 35, issue_id: 6, step_number: 5, instruction: "Your inbox will load — bookmark this page for easy access", note: null },
-    { id: 36, issue_id: 6, step_number: 6, instruction: "To install Office apps (Word, Excel, etc.), click your profile icon → My Account → Apps & devices", note: null },
+    { id: 31, issue_id: 6, step_number: 1, instruction: "Go to morgan.edu and click myMSU to log in", note: null },
+    { id: 32, issue_id: 6, step_number: 2, instruction: "Once logged in, find the Gmail icon in your myMSU dashboard and click it", note: null },
+    { id: 33, issue_id: 6, step_number: 3, instruction: "Your Morgan Gmail inbox will open — your address is username@morgan.edu (e.g. obwoj1@morgan.edu)", note: null },
+    { id: 34, issue_id: 6, step_number: 4, instruction: "You can also go directly to mail.google.com and sign in with your Morgan email and myMSU password", note: null },
+    { id: 35, issue_id: 6, step_number: 5, instruction: "Complete Duo MFA if prompted", note: null },
+    { id: 36, issue_id: 6, step_number: 6, instruction: "Bookmark mail.google.com for quick access — Google Drive, Docs, and Meet are also available from your Google account", note: null },
   ],
   "print-on-campus": [
     { id: 37, issue_id: 7, step_number: 1, instruction: "Make sure you have PaperCut print credit — check your balance at the library front desk", note: "Each student receives a free print credit allocation per semester." },

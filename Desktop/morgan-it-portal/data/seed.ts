@@ -46,7 +46,7 @@ async function seed() {
       { name: "Passwords & Login", slug: "passwords-login", icon: "🔐", description: "Reset passwords and fix login issues" },
       { name: "Computer Labs", slug: "computer-labs", icon: "🖥️", description: "Lab computer access and problems" },
       { name: "Campus WiFi", slug: "campus-wifi", icon: "📶", description: "Connect to MSU networks" },
-      { name: "Email & Microsoft 365", slug: "email-m365", icon: "📧", description: "Morgan email and Office apps" },
+      { name: "Email & Google Workspace", slug: "email-google", icon: "📧", description: "Morgan Gmail and Google tools" },
       { name: "Duo & MFA", slug: "duo-mfa", icon: "📱", description: "Multi-factor authentication setup" },
       { name: "Printing", slug: "printing", icon: "🖨️", description: "Print on campus" },
     ];
@@ -85,10 +85,10 @@ async function seed() {
         steps: [
           { n: 1, instruction: "Make sure you are using your Morgan State username (not your full email) — e.g. obwoj1", note: null },
           { n: 2, instruction: "Your default password is your student ID number if you have never changed it", note: null },
-          { n: 3, instruction: "If that fails, your lab password is tied to your myMSU password — reset it at morgan.edu", note: null },
+          { n: 3, instruction: "If that fails, your lab password is tied to your myMSU password — reset it at mypassword.morgan.edu", note: null },
           { n: 4, instruction: "Wait 15 minutes after a password reset before trying to log into a lab computer (sync delay)", note: null },
           { n: 5, instruction: "If the computer is frozen or showing a black screen, hold the power button for 10 seconds to restart", note: null },
-          { n: 6, instruction: "If you are still locked out, call the IT Help Desk: (443) 885-3838", note: null },
+          { n: 6, instruction: "If you are still locked out, call the IT Help Desk: (443) 885-4357", note: null },
         ],
       },
       {
@@ -137,13 +137,13 @@ async function seed() {
         ],
       },
       {
-        category: "email-m365",
+        category: "email-google",
         title: "Access Morgan Student Email",
         slug: "access-morgan-student-email",
-        summary: "How to log into your Morgan State Microsoft 365 email account.",
+        summary: "How to log into your Morgan State Google Workspace (Gmail) account.",
         keywords: ["email", "outlook", "microsoft", "office", "m365", "student email"],
         steps: [
-          { n: 1, instruction: "Go to outlook.office.com", note: null },
+          { n: 1, instruction: "Go to mail.google.com", note: null },
           { n: 2, instruction: "Enter your full Morgan email (e.g. obwoj1@morgan.edu)", note: null },
           { n: 3, instruction: "You will be redirected to Morgan's login page — enter your myMSU password", note: null },
           { n: 4, instruction: "Complete Duo MFA if prompted", note: null },

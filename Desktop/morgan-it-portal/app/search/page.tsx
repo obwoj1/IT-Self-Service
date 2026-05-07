@@ -1,6 +1,8 @@
 import IssueCard from "@/components/IssueCard";
+import AiResultCard from "@/components/AiResultCard";
 import SearchBar from "@/components/SearchBar";
 import { searchIssues } from "@/lib/issues";
+import { getAiAnswer } from "@/lib/ai-cache";
 import Link from "next/link";
 
 interface SearchPageProps {
@@ -10,6 +12,9 @@ interface SearchPageProps {
 export default async function SearchPage({ searchParams }: SearchPageProps) {
   const q = searchParams.q ?? "";
   const results = q ? await searchIssues(q) : [];
+
+  // Only call AI when the DB has no results and there's actually a query
+  const aiResult = q && results.length === 0 ? await getAiAnswer(q) : null;
 
   return (
     <div className="max-w-3xl mx-auto px-4 py-10">
@@ -38,15 +43,30 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
           ))}
         </div>
       ) : q ? (
-        <div className="bg-white rounded-lg border border-gray-100 shadow-sm p-6 text-center">
-          <p className="text-gray-500 mb-2">No results found for &quot;{q}&quot;.</p>
-          <p className="text-gray-400 text-sm">
-            Need more help? Call the IT Help Desk:{" "}
-            <a href="tel:4438854357" className="text-morgan-orange font-semibold">
-              (443) 885-4357
-            </a>
-          </p>
-        </div>
+        aiResult ? (
+          <div>
+            <p className="text-sm text-gray-400 mb-3">
+              No saved guides matched &quot;{q}&quot; — here&apos;s an AI-generated answer:
+            </p>
+            <AiResultCard
+              title={aiResult.title}
+              summary={aiResult.summary}
+              steps={aiResult.steps}
+              fromCache={aiResult.from_cache}
+              hitCount={aiResult.hit_count}
+            />
+          </div>
+        ) : (
+          <div className="bg-white rounded-lg border border-gray-100 shadow-sm p-6 text-center">
+            <p className="text-gray-500 mb-2">No results found for &quot;{q}&quot;.</p>
+            <p className="text-gray-400 text-sm">
+              Need more help? Call the IT Help Desk:{" "}
+              <a href="tel:4438854357" className="text-morgan-orange font-semibold">
+                (443) 885-4357
+              </a>
+            </p>
+          </div>
+        )
       ) : null}
     </div>
   );

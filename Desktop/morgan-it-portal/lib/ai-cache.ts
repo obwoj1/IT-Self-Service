@@ -55,7 +55,8 @@ Respond ONLY with valid JSON — no other text, no markdown fences:
 }`;
 
 export async function getAiAnswer(query: string): Promise<AiResult | null> {
-  if (!process.env.ANTHROPIC_API_KEY) return null;
+  const apiKey = process.env.ANTHROPIC_API_KEY ?? "";
+  if (!apiKey || !apiKey.startsWith("sk-ant")) return null;
 
   const nq = normalizeQuery(query);
 
@@ -110,7 +111,8 @@ export async function getAiAnswer(query: string): Promise<AiResult | null> {
     );
 
     return { ...parsed, from_cache: false, hit_count: 0 };
-  } catch {
+  } catch (err) {
+    console.error("[ai-cache] Error:", err);
     return null;
   }
 }

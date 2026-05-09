@@ -1,11 +1,12 @@
-import { getTopSearches, getTopViews, getTotalCounts } from "@/lib/analytics";
-import { Search, Eye, TrendingUp } from "lucide-react";
+import { getTopSearches, getTopViews, getTotalCounts, getFeedbackStats } from "@/lib/analytics";
+import { Search, Eye, TrendingUp, ThumbsUp, ThumbsDown } from "lucide-react";
 
 export default async function AnalyticsPage() {
-  const [searches, views, totals] = await Promise.all([
+  const [searches, views, totals, feedback] = await Promise.all([
     getTopSearches(10),
     getTopViews(10),
     getTotalCounts(),
+    getFeedbackStats(),
   ]);
 
   return (
@@ -36,7 +37,7 @@ export default async function AnalyticsPage() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
         <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
           <div className="flex items-center gap-2 px-5 py-3 border-b border-gray-100 bg-gray-50">
             <TrendingUp className="w-4 h-4 text-morgan-blue" />
@@ -84,6 +85,40 @@ export default async function AnalyticsPage() {
             </ul>
           )}
         </div>
+      </div>
+
+      <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+        <div className="flex items-center gap-2 px-5 py-3 border-b border-gray-100 bg-gray-50">
+          <ThumbsUp className="w-4 h-4 text-green-500" />
+          <h2 className="font-semibold text-morgan-blue text-sm">Guide Feedback</h2>
+          <span className="ml-auto text-xs text-gray-400">Was this helpful? votes</span>
+        </div>
+        {feedback.length === 0 ? (
+          <p className="text-gray-400 text-sm px-5 py-6 text-center">No feedback yet.</p>
+        ) : (
+          <ul className="divide-y divide-gray-50">
+            {feedback.map((row) => {
+              const total = row.yes_count + row.no_count;
+              const pct = total > 0 ? Math.round((row.yes_count / total) * 100) : 0;
+              return (
+                <li key={row.issue_slug} className="flex items-center justify-between px-5 py-3 gap-4">
+                  <span className="text-sm text-gray-700 font-mono flex-1 truncate">{row.issue_slug}</span>
+                  <div className="flex items-center gap-3 flex-shrink-0">
+                    <span className="flex items-center gap-1 text-xs text-green-600 font-semibold">
+                      <ThumbsUp className="w-3.5 h-3.5" />
+                      {row.yes_count}
+                    </span>
+                    <span className="flex items-center gap-1 text-xs text-red-500 font-semibold">
+                      <ThumbsDown className="w-3.5 h-3.5" />
+                      {row.no_count}
+                    </span>
+                    <span className="text-xs text-gray-400 w-10 text-right">{pct}%</span>
+                  </div>
+                </li>
+              );
+            })}
+          </ul>
+        )}
       </div>
     </div>
   );

@@ -40,6 +40,37 @@ export async function recordView(slug: string) {
   }
 }
 
+export interface FeedbackRow {
+  issue_slug: string;
+  yes_count: number;
+  no_count: number;
+}
+
+export async function getFeedbackStats(): Promise<FeedbackRow[]> {
+  try {
+    await pool.query(`
+      CREATE TABLE IF NOT EXISTS feedback (
+        id SERIAL PRIMARY KEY,
+        issue_slug TEXT NOT NULL,
+        vote TEXT CHECK (vote IN ('yes','no')) NOT NULL,
+        created_at TIMESTAMPTZ DEFAULT NOW()
+      )
+    `);
+    const { rows } = await pool.query<FeedbackRow>(
+      `SELECT
+         issue_slug,
+         COUNT(*) FILTER (WHERE vote = 'yes')::int AS yes_count,
+         COUNT(*) FILTER (WHERE vote = 'no')::int  AS no_count
+       FROM feedback
+       GROUP BY issue_slug
+       ORDER BY (yes_count + no_count) DESC`
+    );
+    return rows;
+  } catch {
+    return [];
+  }
+}
+
 export interface StatRow {
   value: string;
   count: number;

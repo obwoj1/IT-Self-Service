@@ -8,7 +8,7 @@ A full-stack web portal that lets Morgan State students, staff, and faculty reso
 
 ## What It Does
 
-Students type their IT problem into a search bar. If a guide exists in the database, they get it instantly. If nothing matches, Claude AI generates a step-by-step solution on the fly and caches it so the next person with the same question gets an instant answer.
+Students type their IT problem into a search bar. If a guide exists in the database, they get it instantly. If nothing matches, AI generates a step-by-step solution on the fly and caches it so the next person with the same question gets an instant answer.
 
 ---
 

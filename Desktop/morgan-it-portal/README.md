@@ -41,6 +41,7 @@ Morgan State's IT Help Desk handles hundreds of repeat questions every semester 
 - **Mock data fallback** — app shows content even without a database connection (dev-friendly)
 - **Real database** — PostgreSQL on Supabase, seeded with all 7 guides
 - **Security hardened** — HTTP security headers, rate limiting on the AI route, input validation on all search queries
+- **Admin panel** — password-protected `/admin` dashboard to add, edit, and delete guides without touching code; accessible via the footer "Admin" link
 
 ---
 
@@ -126,7 +127,11 @@ Visit [http://localhost:3000](http://localhost:3000)
 1. Push to GitHub (`obwoj1/IT-Self-Service`)
 2. Go to [vercel.com](https://vercel.com) → New Project → Import from GitHub
 3. Select the repo
-4. Add environment variable: `DATABASE_URL` = your Supabase Session Pooler string
+4. Add all four environment variables:
+   - `DATABASE_URL` — Supabase Session Pooler connection string
+   - `ANTHROPIC_API_KEY` — Claude API key (`sk-ant-...`)
+   - `ADMIN_PASSWORD` — password for the admin panel
+   - `ADMIN_SECRET` — any random string used as the session cookie value
 5. Click Deploy
 
 ---

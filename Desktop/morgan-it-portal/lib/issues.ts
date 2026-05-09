@@ -182,6 +182,30 @@ export async function searchIssues(query: string): Promise<Issue[]> {
   }
 }
 
+export async function getIssuesByCategory(slug: string): Promise<{ category: Category | null; issues: Issue[] }> {
+  if (!isDbConfigured()) {
+    const category = MOCK_CATEGORIES.find((c) => c.slug === slug) ?? null;
+    const issues = MOCK_ISSUES.filter((i) => i.category_slug === slug);
+    return { category, issues };
+  }
+  try {
+    const catRes = await pool.query<Category>(`SELECT * FROM categories WHERE slug = $1`, [slug]);
+    if (catRes.rows.length === 0) return { category: null, issues: [] };
+    const category = catRes.rows[0];
+    const { rows } = await pool.query<Issue>(
+      `SELECT i.*, c.name AS category_name, c.slug AS category_slug
+       FROM issues i JOIN categories c ON c.id = i.category_id
+       WHERE i.category_id = $1 ORDER BY i.title`,
+      [category.id]
+    );
+    return { category, issues: rows };
+  } catch {
+    const category = MOCK_CATEGORIES.find((c) => c.slug === slug) ?? null;
+    const issues = MOCK_ISSUES.filter((i) => i.category_slug === slug);
+    return { category, issues };
+  }
+}
+
 export async function getRelatedIssues(slug: string, categoryId: number, keywords: string[]): Promise<Issue[]> {
   if (!isDbConfigured()) {
     return MOCK_ISSUES.filter(

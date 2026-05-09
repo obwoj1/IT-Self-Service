@@ -16,7 +16,7 @@ export default function CategoryCard({ name, description, issueCount, slug }: Ca
 
   return (
     <Link
-      href={`/?category=${slug}`}
+      href={`/category/${slug}`}
       className="group flex items-start gap-4 bg-white rounded-2xl border border-gray-100 shadow-sm p-5
                  hover:shadow-md hover:border-morgan-orange/40 transition-all duration-200"
     >

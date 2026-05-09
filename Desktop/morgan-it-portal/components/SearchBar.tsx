@@ -36,8 +36,8 @@ export default function SearchBar({ defaultValue = "" }: { defaultValue?: string
         </button>
       </div>
       <p className="flex items-center justify-center gap-1.5 mt-2.5 text-xs text-gray-400">
-        <Sparkles className="w-3.5 h-3.5 text-purple-400" />
-        AI-powered — if no guide exists, Claude generates a step-by-step answer instantly
+        <Sparkles className="w-3.5 h-3.5 text-morgan-orange" />
+        AI-powered search
       </p>
     </form>
   );

@@ -33,12 +33,14 @@ Morgan State's IT Help Desk handles hundreds of repeat questions every semester 
 - **Search** — full-text search across issue titles, summaries, and keywords
 - **Category browsing** — 6 categories with issue counts, clickable to filter
 - **Step-by-step guides** — 7 complete issue guides with numbered steps and tip boxes
+- **AI search fallback** — when no DB result is found, Claude (`claude-opus-4-7`) generates a step-by-step guide on the fly; response is cached in PostgreSQL so repeat queries return instantly
 - **"Still need help?" CTA** — IT Help Desk number on every issue page
 - **"Was this helpful?" UI** — feedback buttons on every issue page
 - **Morgan State branding** — official blue (`#003366`) and orange (`#FF6600`), Google Fonts
 - **Fully responsive** — mobile-first layout, works on all screen sizes
 - **Mock data fallback** — app shows content even without a database connection (dev-friendly)
 - **Real database** — PostgreSQL on Supabase, seeded with all 7 guides
+- **Security hardened** — HTTP security headers, rate limiting on the AI route, input validation on all search queries
 
 ---
 
@@ -52,6 +54,18 @@ Morgan State's IT Help Desk handles hundreds of repeat questions every semester 
 | Email & Google Workspace | Access Morgan Student Email (Gmail) |
 | Duo & MFA | Set Up Duo MFA |
 | Printing | Print on Campus |
+
+---
+
+## Security
+
+| Layer | Implementation | Why |
+|---|---|---|
+| HTTP headers | `next.config.mjs` — applied to every route | Blocks clickjacking (`X-Frame-Options: DENY`), MIME sniffing, enforces HTTPS, restricts what the browser can load via CSP |
+| Rate limiting | `lib/rate-limit.ts` — 10 AI requests/IP/minute on `/api/ai-search` | Prevents API credit abuse; returns `429` with `Retry-After: 60` |
+| Input validation | `app/search/page.tsx` + AI route — queries capped at 200 chars | Prevents oversized prompts from reaching Claude or the database |
+| Parameterized queries | All DB queries use `$1, $2` placeholders | SQL injection is structurally impossible |
+| `.env.local` gitignored | `DATABASE_URL` and `ANTHROPIC_API_KEY` never leave the machine | Secrets never touch the repo |
 
 ---
 

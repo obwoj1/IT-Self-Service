@@ -1,144 +1,48 @@
-# Morgan State University — IT Support Tool
+# Morgan State University — IT Self-Service Portal
 
-A full-stack web portal that lets Morgan State students, staff, and faculty resolve common IT issues on their own — no commute to the IT desk required. Users search for their problem and get clear, step-by-step resolution guides built specifically for Morgan State's systems.
+A full-stack web portal that lets Morgan State students, staff, and faculty resolve common IT issues on their own — 24/7, no wait, no commute to the IT desk.
 
----
-
-## Why This Exists
-
-Morgan State's IT Help Desk handles hundreds of repeat questions every semester — password resets, WiFi setup, Duo MFA enrollment, lab computer issues. Most of these have a fixed answer. This portal puts those answers online, available 24/7, searchable, and written in plain language. The long-term vision is to also handle unknown issues by connecting to an AI that searches the web in real time and generates a solution.
+**Live:** [it-self-service.vercel.app](https://it-self-service.vercel.app)
 
 ---
 
-## Live Demo
+## What It Does
 
-> Deployment coming — see setup instructions below to run locally.
+Students type their IT problem into a search bar. If a guide exists in the database, they get it instantly. If nothing matches, Claude AI generates a step-by-step solution on the fly and caches it so the next person with the same question gets an instant answer.
+
+---
+
+## Key Features
+
+- **Smart search** — full-text search across all guides by title, summary, and keywords
+- **AI fallback** — when no guide matches, Claude (`claude-opus-4-7`) generates one in real time; response is cached in PostgreSQL so repeat queries are instant
+- **18 step-by-step guides** across 9 categories (WiFi, Canvas, Banner, Duo MFA, Printing, VPN, Adobe CC, and more)
+- **Category pages** — dedicated URLs for every category (e.g. `/category/campus-wifi`)
+- **Related guides** — each issue page surfaces 2–3 related guides automatically
+- **Dark mode** — system preference detection + toggle in the header, persisted to localStorage
+- **Feedback** — "Was this helpful?" Yes/No on every guide, votes stored in PostgreSQL
+- **Admin panel** — password-protected dashboard at `/admin` to add, edit, and delete guides without touching code
+- **Analytics** — admin can see top searches, most viewed guides, and feedback scores per guide
+- **Morgan State branding** — official blue (`#003366`) and orange (`#FF6600`) throughout
+- **Fully responsive** — works on mobile, tablet, and desktop
+- **Security hardened** — HTTP headers, rate limiting on the AI route, input validation, parameterized queries
 
 ---
 
 ## Tech Stack
 
-| Layer | Technology | Why |
-|---|---|---|
-| Frontend | Next.js 14 (App Router) | Full-stack in one repo, server components, file-based routing |
-| Styling | Tailwind CSS | Utility-first, fast to build, easy to maintain |
-| Database | PostgreSQL via Supabase | Free tier, real-time dashboard, IPv4-compatible pooler |
-| DB Client | `pg` (node-postgres) | Lightweight, works with any Postgres host |
-| Deployment | Vercel (planned) | Zero-config Next.js deployment, pairs with Supabase |
-
----
-
-## Features Built
-
-- **Search** — full-text search across issue titles, summaries, and keywords
-- **Category browsing** — 6 categories with issue counts, clickable to filter
-- **Step-by-step guides** — 7 complete issue guides with numbered steps and tip boxes
-- **AI search fallback** — when no DB result is found, Claude (`claude-opus-4-7`) generates a step-by-step guide on the fly; response is cached in PostgreSQL so repeat queries return instantly
-- **"Still need help?" CTA** — IT Help Desk number on every issue page
-- **"Was this helpful?" UI** — feedback buttons on every issue page
-- **Morgan State branding** — official blue (`#003366`) and orange (`#FF6600`), Google Fonts
-- **Fully responsive** — mobile-first layout, works on all screen sizes
-- **Mock data fallback** — app shows content even without a database connection (dev-friendly)
-- **Real database** — PostgreSQL on Supabase, seeded with all 7 guides
-- **Security hardened** — HTTP security headers, rate limiting on the AI route, input validation on all search queries
-- **Admin panel** — password-protected `/admin` dashboard to add, edit, and delete guides without touching code; accessible via the footer "Admin" link
-
----
-
-## Current Issue Categories & Guides
-
-| Category | Guides |
+| Layer | Technology |
 |---|---|
-| Passwords & Login | Reset myMSU Password |
-| Computer Labs | Can't Log Into a Lab Computer |
-| Campus WiFi | Connect to Eduroam, Connect to MSU-Guest |
-| Email & Google Workspace | Access Morgan Student Email (Gmail) |
-| Duo & MFA | Set Up Duo MFA |
-| Printing | Print on Campus |
-
----
-
-## Security
-
-| Layer | Implementation | Why |
-|---|---|---|
-| HTTP headers | `next.config.mjs` — applied to every route | Blocks clickjacking (`X-Frame-Options: DENY`), MIME sniffing, enforces HTTPS, restricts what the browser can load via CSP |
-| Rate limiting | `lib/rate-limit.ts` — 10 AI requests/IP/minute on `/api/ai-search` | Prevents API credit abuse; returns `429` with `Retry-After: 60` |
-| Input validation | `app/search/page.tsx` + AI route — queries capped at 200 chars | Prevents oversized prompts from reaching Claude or the database |
-| Parameterized queries | All DB queries use `$1, $2` placeholders | SQL injection is structurally impossible |
-| `.env.local` gitignored | `DATABASE_URL` and `ANTHROPIC_API_KEY` never leave the machine | Secrets never touch the repo |
-
----
-
-## What's Missing (Next Steps)
-
-### High Priority
-- **AI web search fallback** — when a user searches something not in the database, call the Claude API (or Tavily) to search the web and generate a real-time answer specific to Morgan State
-- **Admin panel** — a password-protected page to add, edit, and delete issue guides without touching code
-- **Vercel deployment** — get the site live at a public URL
-
-### Medium Priority
-- **More guides** — VPN setup, Banner/WebSIS navigation, Canvas troubleshooting, software installs, Panopto, Google Drive storage
-- **Feedback backend** — actually store "Was this helpful?" Yes/No votes in the database so IT staff can see which guides need improvement
-- **Category pages** — dedicated URLs like `/category/campus-wifi` instead of query params
-
-### Nice to Have
-- **Analytics** — track which issues are searched most (helps IT prioritize what to document)
-- **Related guides** — show 2-3 related issues at the bottom of each guide page
-- **Dark mode**
-- **Morgan State logo** in the header
-
----
-
-## Local Setup
-
-### 1. Clone and install
-```bash
-git clone https://github.com/obwoj1/IT-Self-Service.git
-cd morgan-it-portal
-npm install
-```
-
-### 2. Set up database (Supabase)
-1. Go to [supabase.com](https://supabase.com) and create a free project
-2. Go to **Settings → Database → Connection String → Session Pooler**
-3. Copy the connection string (use Session Pooler for IPv4 compatibility)
-4. Create `.env.local`:
-```
-DATABASE_URL=postgresql://postgres.YOURREF:YOURPASSWORD@aws-1-us-east-1.pooler.supabase.com:5432/postgres
-```
-
-### 3. Seed the database
-```bash
-npx ts-node --project tsconfig.seed.json data/seed.ts
-```
-You should see: `✅ Database seeded successfully.`
-
-### 4. Run the dev server
-```bash
-npm run dev
-```
-Visit [http://localhost:3000](http://localhost:3000)
-
----
-
-## Deployment (Vercel)
-
-1. Push to GitHub (`obwoj1/IT-Self-Service`)
-2. Go to [vercel.com](https://vercel.com) → New Project → Import from GitHub
-3. Select the repo
-4. Add all four environment variables:
-   - `DATABASE_URL` — Supabase Session Pooler connection string
-   - `ANTHROPIC_API_KEY` — Claude API key (`sk-ant-...`)
-   - `ADMIN_PASSWORD` — password for the admin panel
-   - `ADMIN_SECRET` — any random string used as the session cookie value
-5. Click Deploy
+| Frontend / Backend | Next.js 14 (App Router) |
+| Styling | Tailwind CSS |
+| Database | PostgreSQL via Supabase |
+| AI | Claude API (`claude-opus-4-7`) via Anthropic SDK |
+| Deployment | Vercel |
 
 ---
 
 ## IT Help Desk
 
-**Phone:** (443) 885-4357 (443-885-HELP)
-**Email:** servicedesk@morgan.edu
+**Phone:** (443) 885-4357  
+**Email:** servicedesk@morgan.edu  
 **Hours:** Monday–Friday, 8AM–5PM
-**Portal:** morgan.edu/servicedesk

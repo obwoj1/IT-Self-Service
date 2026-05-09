@@ -1,6 +1,6 @@
 # Morgan State IT Portal — Full Project Walkthrough
 
-Built by Obaloluwa Wojuade (obwoj1) for COSC 459, Spring 2026.  
+Built by Obaloluwa Wojuade (obwoj1), Spring 2026.  
 Live at: https://it-self-service.vercel.app  
 Repo: https://github.com/obwoj1/IT-Self-Service
 

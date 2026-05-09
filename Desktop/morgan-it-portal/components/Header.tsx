@@ -1,6 +1,7 @@
 "use client";
 
 import { Phone } from "lucide-react";
+import DarkModeToggle from "./DarkModeToggle";
 
 export default function Header() {
   return (
@@ -18,13 +19,16 @@ export default function Header() {
           </div>
         </div>
 
-        <a
-          href="tel:4438854357"
-          className="hidden sm:flex items-center gap-2 bg-white/10 hover:bg-morgan-orange transition-colors duration-200 text-white text-sm font-medium px-4 py-2 rounded-xl"
-        >
-          <Phone className="w-4 h-4" />
-          (443) 885-4357
-        </a>
+        <div className="flex items-center gap-2">
+          <DarkModeToggle />
+          <a
+            href="tel:4438854357"
+            className="hidden sm:flex items-center gap-2 bg-white/10 hover:bg-morgan-orange transition-colors duration-200 text-white text-sm font-medium px-4 py-2 rounded-xl"
+          >
+            <Phone className="w-4 h-4" />
+            (443) 885-4357
+          </a>
+        </div>
       </div>
     </header>
   );

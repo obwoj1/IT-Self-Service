@@ -2,8 +2,8 @@ import Link from "next/link";
 
 export default function Footer() {
   return (
-    <footer className="mt-16 border-t border-gray-100 py-6 text-center">
-      <p className="text-gray-400 text-xs">
+    <footer className="mt-16 border-t border-gray-100 dark:border-gray-800 py-6 text-center">
+      <p className="text-gray-400 dark:text-gray-500 text-xs">
         Morgan State University IT Support Tool &mdash;{" "}
         <a
           href="tel:4438854357"
@@ -14,7 +14,7 @@ export default function Footer() {
       </p>
       <Link
         href="/admin"
-        className="inline-block mt-2 text-xs text-gray-300 hover:text-morgan-blue transition-colors"
+        className="inline-block mt-2 text-xs text-gray-300 dark:text-gray-600 hover:text-morgan-blue transition-colors"
       >
         Admin
       </Link>

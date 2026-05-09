@@ -22,17 +22,17 @@ export default async function CategoryPage({ params }: { params: { slug: string 
       </Link>
 
       <div className="flex items-center gap-4 mb-8">
-        <div className="w-14 h-14 rounded-2xl bg-morgan-blue/10 flex items-center justify-center flex-shrink-0">
-          <Icon className="w-7 h-7 text-morgan-blue" />
+        <div className="w-14 h-14 rounded-2xl bg-morgan-blue/10 dark:bg-morgan-blue/20 flex items-center justify-center flex-shrink-0">
+          <Icon className="w-7 h-7 text-morgan-blue dark:text-blue-300" />
         </div>
         <div>
-          <h1 className="text-2xl font-bold text-morgan-blue">{category.name}</h1>
-          <p className="text-gray-500 text-sm mt-0.5">{category.description}</p>
+          <h1 className="text-2xl font-bold text-morgan-blue dark:text-blue-200">{category.name}</h1>
+          <p className="text-gray-500 dark:text-gray-400 text-sm mt-0.5">{category.description}</p>
         </div>
       </div>
 
       {issues.length === 0 ? (
-        <p className="text-gray-400">No guides in this category yet.</p>
+        <p className="text-gray-400 dark:text-gray-500">No guides in this category yet.</p>
       ) : (
         <div className="flex flex-col gap-3">
           {issues.map((issue) => (

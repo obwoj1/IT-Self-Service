@@ -8,17 +8,17 @@ export default async function Home() {
   return (
     <div className="max-w-6xl mx-auto px-4 py-10">
       <div className="text-center mb-10">
-        <h1 className="text-3xl font-bold text-morgan-blue mb-2">
+        <h1 className="text-3xl font-bold text-morgan-blue dark:text-blue-200 mb-2">
           How can we help you today?
         </h1>
-        <p className="text-gray-500 mb-6">
+        <p className="text-gray-500 dark:text-gray-400 mb-6">
           Search for your issue or browse by category below.
         </p>
         <SearchBar />
       </div>
 
       <section>
-        <h2 className="text-xl font-bold text-morgan-blue mb-4">Browse by Category</h2>
+        <h2 className="text-xl font-bold text-morgan-blue dark:text-blue-200 mb-4">Browse by Category</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {categories.map((cat) => (
             <CategoryCard

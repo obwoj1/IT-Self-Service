@@ -31,7 +31,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
         <SearchBar defaultValue={q} />
       </div>
 
-      <h2 className="text-xl font-bold text-morgan-blue mb-4">
+      <h2 className="text-xl font-bold text-morgan-blue dark:text-blue-200 mb-4">
         {q ? `Results for "${q}"` : "Search for an issue"}
       </h2>
 
@@ -50,7 +50,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
       ) : q ? (
         aiResult ? (
           <div>
-            <p className="text-sm text-gray-400 mb-3">
+            <p className="text-sm text-gray-400 dark:text-gray-500 mb-3">
               No saved guides matched &quot;{q}&quot; — here&apos;s an AI-generated answer:
             </p>
             <AiResultCard
@@ -62,9 +62,9 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
             />
           </div>
         ) : (
-          <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-8 text-center">
-            <p className="text-gray-500 mb-2">No results found for &quot;{q}&quot;.</p>
-            <p className="text-gray-400 text-sm mb-4">Need more help? Call the IT Help Desk.</p>
+          <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 shadow-sm p-8 text-center">
+            <p className="text-gray-500 dark:text-gray-400 mb-2">No results found for &quot;{q}&quot;.</p>
+            <p className="text-gray-400 dark:text-gray-500 text-sm mb-4">Need more help? Call the IT Help Desk.</p>
             <a
               href="tel:4438854357"
               className="inline-flex items-center gap-2 bg-morgan-orange text-white px-5 py-2.5 rounded-xl font-semibold text-sm hover:bg-orange-600 transition-colors"

@@ -27,13 +27,13 @@ export default async function IssuePage({ params }: IssuePageProps) {
       </Link>
 
       <div className="mb-2">
-        <span className="inline-block bg-morgan-blue/10 text-morgan-blue text-xs font-semibold px-2.5 py-0.5 rounded-full">
+        <span className="inline-block bg-morgan-blue/10 dark:bg-blue-900/40 text-morgan-blue dark:text-blue-300 text-xs font-semibold px-2.5 py-0.5 rounded-full">
           {issue.category_name}
         </span>
       </div>
 
-      <h1 className="text-2xl font-bold text-morgan-blue mb-2">{issue.title}</h1>
-      <p className="text-gray-500 mb-8">{issue.summary}</p>
+      <h1 className="text-2xl font-bold text-morgan-blue dark:text-blue-200 mb-2">{issue.title}</h1>
+      <p className="text-gray-500 dark:text-gray-400 mb-8">{issue.summary}</p>
 
       <ol className="flex flex-col gap-4 mb-10">
         {issue.steps.map((step) => (
@@ -42,9 +42,9 @@ export default async function IssuePage({ params }: IssuePageProps) {
               {step.step_number}
             </span>
             <div className="pt-1 flex-1">
-              <p className="text-gray-800 leading-relaxed">{step.instruction}</p>
+              <p className="text-gray-800 dark:text-gray-200 leading-relaxed">{step.instruction}</p>
               {step.note && (
-                <div className="mt-2 flex gap-2 bg-orange-50 border border-orange-100 px-3 py-2.5 rounded-xl text-sm text-orange-800">
+                <div className="mt-2 flex gap-2 bg-orange-50 dark:bg-orange-900/20 border border-orange-100 dark:border-orange-800/40 px-3 py-2.5 rounded-xl text-sm text-orange-800 dark:text-orange-300">
                   <Lightbulb className="w-4 h-4 flex-shrink-0 mt-0.5 text-morgan-orange" />
                   <span>{step.note}</span>
                 </div>

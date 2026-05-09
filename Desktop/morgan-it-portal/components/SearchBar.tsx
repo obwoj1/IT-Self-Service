@@ -24,7 +24,7 @@ export default function SearchBar({ defaultValue = "" }: { defaultValue?: string
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Describe your IT issue..."
-          className="w-full pl-12 pr-32 py-4 rounded-2xl border-2 border-gray-200 bg-white text-base
+          className="w-full pl-12 pr-32 py-4 rounded-2xl border-2 border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 dark:text-gray-100 dark:placeholder-gray-500 text-base
                      focus:outline-none focus:border-morgan-orange transition-colors shadow-sm"
         />
         <button
@@ -35,7 +35,7 @@ export default function SearchBar({ defaultValue = "" }: { defaultValue?: string
           Search
         </button>
       </div>
-      <p className="flex items-center justify-center gap-1.5 mt-2.5 text-xs text-gray-400">
+      <p className="flex items-center justify-center gap-1.5 mt-2.5 text-xs text-gray-400 dark:text-gray-500">
         <Sparkles className="w-3.5 h-3.5 text-morgan-orange" />
         AI-powered help for unique problems
       </p>

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { LayoutDashboard, PlusCircle, LogOut } from "lucide-react";
+import { LayoutDashboard, PlusCircle, LogOut, BarChart2 } from "lucide-react";
 
 export default function AdminNav() {
   const router = useRouter();
@@ -28,6 +28,13 @@ export default function AdminNav() {
           >
             <LayoutDashboard className="w-4 h-4" />
             Dashboard
+          </Link>
+          <Link
+            href="/admin/analytics"
+            className="flex items-center gap-1.5 text-white/80 hover:text-white hover:bg-white/10 transition-colors px-3 py-2 rounded-xl text-sm font-medium"
+          >
+            <BarChart2 className="w-4 h-4" />
+            Analytics
           </Link>
           <Link
             href="/admin/issues/new"

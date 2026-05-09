@@ -1,6 +1,7 @@
 import { getIssueBySlug, getRelatedIssues } from "@/lib/issues";
 import FeedbackButtons from "@/components/FeedbackButtons";
 import RelatedGuides from "@/components/RelatedGuides";
+import { recordView } from "@/lib/analytics";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, Lightbulb, Phone } from "lucide-react";
@@ -13,6 +14,7 @@ export default async function IssuePage({ params }: IssuePageProps) {
   const issue = await getIssueBySlug(params.slug);
   if (!issue) notFound();
   const related = await getRelatedIssues(params.slug, issue.category_id, issue.keywords);
+  recordView(params.slug);
 
   return (
     <div className="max-w-2xl mx-auto px-4 py-10">

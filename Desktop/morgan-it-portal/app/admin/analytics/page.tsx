@@ -1,0 +1,90 @@
+import { getTopSearches, getTopViews, getTotalCounts } from "@/lib/analytics";
+import { Search, Eye, TrendingUp } from "lucide-react";
+
+export default async function AnalyticsPage() {
+  const [searches, views, totals] = await Promise.all([
+    getTopSearches(10),
+    getTopViews(10),
+    getTotalCounts(),
+  ]);
+
+  return (
+    <div>
+      <div className="mb-6">
+        <h1 className="text-2xl font-bold text-morgan-blue">Analytics</h1>
+        <p className="text-gray-400 text-sm mt-0.5">What students are searching and viewing</p>
+      </div>
+
+      <div className="grid grid-cols-2 gap-4 mb-8">
+        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 flex items-center gap-4">
+          <div className="w-10 h-10 rounded-xl bg-morgan-blue/10 flex items-center justify-center flex-shrink-0">
+            <Search className="w-5 h-5 text-morgan-blue" />
+          </div>
+          <div>
+            <p className="text-2xl font-bold text-morgan-blue">{totals.searches.toLocaleString()}</p>
+            <p className="text-xs text-gray-400">Total searches</p>
+          </div>
+        </div>
+        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 flex items-center gap-4">
+          <div className="w-10 h-10 rounded-xl bg-morgan-orange/10 flex items-center justify-center flex-shrink-0">
+            <Eye className="w-5 h-5 text-morgan-orange" />
+          </div>
+          <div>
+            <p className="text-2xl font-bold text-morgan-blue">{totals.views.toLocaleString()}</p>
+            <p className="text-xs text-gray-400">Total guide views</p>
+          </div>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+          <div className="flex items-center gap-2 px-5 py-3 border-b border-gray-100 bg-gray-50">
+            <TrendingUp className="w-4 h-4 text-morgan-blue" />
+            <h2 className="font-semibold text-morgan-blue text-sm">Top Searches</h2>
+          </div>
+          {searches.length === 0 ? (
+            <p className="text-gray-400 text-sm px-5 py-6 text-center">No search data yet.</p>
+          ) : (
+            <ul className="divide-y divide-gray-50">
+              {searches.map((row, i) => (
+                <li key={row.value} className="flex items-center justify-between px-5 py-3">
+                  <div className="flex items-center gap-3">
+                    <span className="text-xs font-bold text-gray-300 w-4">{i + 1}</span>
+                    <span className="text-sm text-gray-700">{row.value}</span>
+                  </div>
+                  <span className="text-xs font-semibold text-morgan-blue bg-morgan-blue/10 px-2 py-0.5 rounded-full">
+                    {row.count}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+
+        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+          <div className="flex items-center gap-2 px-5 py-3 border-b border-gray-100 bg-gray-50">
+            <Eye className="w-4 h-4 text-morgan-orange" />
+            <h2 className="font-semibold text-morgan-blue text-sm">Most Viewed Guides</h2>
+          </div>
+          {views.length === 0 ? (
+            <p className="text-gray-400 text-sm px-5 py-6 text-center">No view data yet.</p>
+          ) : (
+            <ul className="divide-y divide-gray-50">
+              {views.map((row, i) => (
+                <li key={row.value} className="flex items-center justify-between px-5 py-3">
+                  <div className="flex items-center gap-3">
+                    <span className="text-xs font-bold text-gray-300 w-4">{i + 1}</span>
+                    <span className="text-sm text-gray-700 font-mono">{row.value}</span>
+                  </div>
+                  <span className="text-xs font-semibold text-morgan-orange bg-morgan-orange/10 px-2 py-0.5 rounded-full">
+                    {row.count}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}

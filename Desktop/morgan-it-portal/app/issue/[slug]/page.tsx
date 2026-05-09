@@ -1,4 +1,5 @@
 import { getIssueBySlug } from "@/lib/issues";
+import FeedbackButtons from "@/components/FeedbackButtons";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
@@ -43,17 +44,7 @@ export default async function IssuePage({ params }: IssuePageProps) {
         ))}
       </ol>
 
-      <div className="bg-white rounded-lg border border-gray-100 shadow-sm p-5 mb-6">
-        <p className="font-semibold text-morgan-blue mb-3">Was this helpful?</p>
-        <div className="flex gap-3">
-          <button className="px-5 py-2 rounded-full border-2 border-morgan-blue text-morgan-blue text-sm font-semibold hover:bg-morgan-blue hover:text-white transition-colors">
-            👍 Yes
-          </button>
-          <button className="px-5 py-2 rounded-full border-2 border-gray-300 text-gray-500 text-sm font-semibold hover:border-morgan-orange hover:text-morgan-orange transition-colors">
-            👎 No
-          </button>
-        </div>
-      </div>
+      <FeedbackButtons slug={params.slug} />
 
       <div className="bg-morgan-blue rounded-lg p-5 text-white text-center">
         <p className="font-semibold mb-1">Still need help?</p>

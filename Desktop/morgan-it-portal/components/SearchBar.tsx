@@ -1,5 +1,6 @@
 "use client";
 
+import { Search } from "lucide-react";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
@@ -16,19 +17,20 @@ export default function SearchBar({ defaultValue = "" }: { defaultValue?: string
 
   return (
     <form onSubmit={handleSubmit} className="w-full max-w-2xl mx-auto">
-      <div className="flex gap-2">
+      <div className="relative flex items-center">
+        <Search className="absolute left-4 w-5 h-5 text-gray-400 pointer-events-none" />
         <input
           type="text"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          placeholder="Search for your issue..."
-          className="flex-1 px-5 py-3 rounded-full border-2 border-gray-200 text-base
+          placeholder="Describe your IT issue..."
+          className="w-full pl-12 pr-32 py-4 rounded-2xl border-2 border-gray-200 bg-white text-base
                      focus:outline-none focus:border-morgan-orange transition-colors shadow-sm"
         />
         <button
           type="submit"
-          className="bg-morgan-orange text-white px-6 py-3 rounded-full font-semibold
-                     hover:bg-orange-700 transition-colors shadow-sm"
+          className="absolute right-2 bg-morgan-orange hover:bg-orange-600 transition-colors
+                     text-white px-5 py-2.5 rounded-xl font-semibold text-sm"
         >
           Search
         </button>

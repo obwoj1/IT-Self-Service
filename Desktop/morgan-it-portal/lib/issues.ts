@@ -34,9 +34,12 @@ const MOCK_CATEGORIES: Category[] = [
   { id: 1, name: "Passwords & Login", slug: "passwords-login", icon: "🔐", description: "Reset passwords and fix login issues", issue_count: 1 },
   { id: 2, name: "Computer Labs", slug: "computer-labs", icon: "🖥️", description: "Lab computer access and problems", issue_count: 1 },
   { id: 3, name: "Campus WiFi", slug: "campus-wifi", icon: "📶", description: "Connect to MSU networks", issue_count: 2 },
-  { id: 4, name: "Email & Google Workspace", slug: "email-google", icon: "📧", description: "Morgan Gmail and Google tools", issue_count: 1 },
+  { id: 4, name: "Email & Google Workspace", slug: "email-google", icon: "📧", description: "Morgan Gmail and Google tools", issue_count: 2 },
   { id: 5, name: "Duo & MFA", slug: "duo-mfa", icon: "📱", description: "Multi-factor authentication setup", issue_count: 1 },
   { id: 6, name: "Printing", slug: "printing", icon: "🖨️", description: "Print on campus", issue_count: 1 },
+  { id: 7, name: "Canvas & Courses", slug: "canvas-courses", icon: "📚", description: "Canvas LMS and course access", issue_count: 2 },
+  { id: 8, name: "Banner & Registration", slug: "banner-registration", icon: "🎓", description: "WebSIS, registration, and grades", issue_count: 2 },
+  { id: 9, name: "VPN & Remote Access", slug: "vpn-remote", icon: "🔒", description: "Connect to Morgan networks off campus", issue_count: 1 },
 ];
 
 const MOCK_ISSUES: Issue[] = [

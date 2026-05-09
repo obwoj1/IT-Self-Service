@@ -10,7 +10,7 @@ interface SearchPageProps {
 }
 
 export default async function SearchPage({ searchParams }: SearchPageProps) {
-  const q = searchParams.q ?? "";
+  const q = (searchParams.q ?? "").trim().slice(0, 200);
   const results = q ? await searchIssues(q) : [];
 
   // Only call AI when the DB has no results and there's actually a query

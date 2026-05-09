@@ -1,5 +1,6 @@
-import { getIssueBySlug } from "@/lib/issues";
+import { getIssueBySlug, getRelatedIssues } from "@/lib/issues";
 import FeedbackButtons from "@/components/FeedbackButtons";
+import RelatedGuides from "@/components/RelatedGuides";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, Lightbulb, Phone } from "lucide-react";
@@ -11,6 +12,7 @@ interface IssuePageProps {
 export default async function IssuePage({ params }: IssuePageProps) {
   const issue = await getIssueBySlug(params.slug);
   if (!issue) notFound();
+  const related = await getRelatedIssues(params.slug, issue.category_id, issue.keywords);
 
   return (
     <div className="max-w-2xl mx-auto px-4 py-10">
@@ -52,7 +54,9 @@ export default async function IssuePage({ params }: IssuePageProps) {
 
       <FeedbackButtons slug={params.slug} />
 
-      <div className="bg-morgan-blue rounded-2xl p-6 text-white text-center">
+      <RelatedGuides issues={related} />
+
+      <div className="bg-morgan-blue rounded-2xl p-6 text-white text-center mt-10">
         <p className="font-bold text-lg mb-1">Still need help?</p>
         <p className="text-sm text-blue-200 mb-4">Our IT Help Desk is here for you.</p>
         <a

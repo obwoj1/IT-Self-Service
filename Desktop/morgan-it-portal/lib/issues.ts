@@ -182,6 +182,37 @@ export async function searchIssues(query: string): Promise<Issue[]> {
   }
 }
 
+export async function getRelatedIssues(slug: string, categoryId: number, keywords: string[]): Promise<Issue[]> {
+  if (!isDbConfigured()) {
+    return MOCK_ISSUES.filter(
+      (i) => i.slug !== slug && (i.category_id === categoryId || i.keywords.some((k) => keywords.includes(k)))
+    ).slice(0, 3);
+  }
+  try {
+    const keywordArray = keywords.length > 0 ? keywords : [""];
+    const { rows } = await pool.query<Issue>(
+      `SELECT i.*, c.name AS category_name, c.slug AS category_slug
+       FROM issues i
+       JOIN categories c ON c.id = i.category_id
+       WHERE i.slug != $1
+         AND (
+           i.category_id = $2
+           OR EXISTS (
+             SELECT 1 FROM unnest(i.keywords) kw WHERE kw = ANY($3::text[])
+           )
+         )
+       ORDER BY (i.category_id = $2) DESC, i.title
+       LIMIT 3`,
+      [slug, categoryId, keywordArray]
+    );
+    return rows;
+  } catch {
+    return MOCK_ISSUES.filter(
+      (i) => i.slug !== slug && i.category_id === categoryId
+    ).slice(0, 3);
+  }
+}
+
 export async function getIssueBySlug(slug: string): Promise<(Issue & { steps: Step[] }) | null> {
   if (!isDbConfigured()) {
     const issue = MOCK_ISSUES.find((i) => i.slug === slug) ?? null;

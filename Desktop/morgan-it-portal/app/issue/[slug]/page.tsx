@@ -14,7 +14,7 @@ export default async function IssuePage({ params }: IssuePageProps) {
   const issue = await getIssueBySlug(params.slug);
   if (!issue) notFound();
   const related = await getRelatedIssues(params.slug, issue.category_id, issue.keywords);
-  recordView(params.slug);
+  await recordView(params.slug);
 
   return (
     <div className="max-w-2xl mx-auto px-4 py-10">

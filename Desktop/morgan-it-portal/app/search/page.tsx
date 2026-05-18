@@ -14,7 +14,7 @@ interface SearchPageProps {
 export default async function SearchPage({ searchParams }: SearchPageProps) {
   const q = (searchParams.q ?? "").trim().slice(0, 200);
   const results = q ? await searchIssues(q) : [];
-  if (q) recordSearch(q);
+  if (q) await recordSearch(q);
   const aiResult = q && results.length === 0 ? await getAiAnswer(q) : null;
 
   return (

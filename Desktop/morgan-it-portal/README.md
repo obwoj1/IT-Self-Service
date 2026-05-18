@@ -14,7 +14,7 @@ Students type their IT problem into a search bar. If a guide exists in the datab
 
 ## Key Features
 
-- **Smart search** — full-text search across all guides by title, summary, and keywords
+- **Smart search** — full-text search across all guides by title, summary, and keywords; shows a loading state while results fetch
 - **AI fallback** — when no guide matches, Claude (`claude-opus-4-7`) generates one in real time; response is cached in PostgreSQL so repeat queries are instant
 - **18 step-by-step guides** across 9 categories (WiFi, Canvas, Banner, Duo MFA, Printing, VPN, Adobe CC, and more)
 - **Category pages** — dedicated URLs for every category (e.g. `/category/campus-wifi`)
@@ -22,7 +22,7 @@ Students type their IT problem into a search bar. If a guide exists in the datab
 - **Dark mode** — system preference detection + toggle in the header, persisted to localStorage
 - **Feedback** — "Was this helpful?" Yes/No on every guide, votes stored in PostgreSQL
 - **Admin panel** — password-protected dashboard at `/admin` to add, edit, and delete guides without touching code
-- **Analytics** — admin can see top searches, most viewed guides, and feedback scores per guide
+- **Analytics** — admin can see top searches, most viewed guides, per-guide feedback scores, and a live recent search feed with timestamps
 - **Morgan State branding** — official blue (`#003366`) and orange (`#FF6600`) throughout
 - **Fully responsive** — works on mobile, tablet, and desktop
 - **Security hardened** — HTTP headers, rate limiting on the AI route, input validation, parameterized queries

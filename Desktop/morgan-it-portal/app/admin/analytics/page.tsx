@@ -1,12 +1,13 @@
-import { getTopSearches, getTopViews, getTotalCounts, getFeedbackStats } from "@/lib/analytics";
-import { Search, Eye, TrendingUp, ThumbsUp, ThumbsDown } from "lucide-react";
+import { getTopSearches, getTopViews, getTotalCounts, getFeedbackStats, getRecentSearches } from "@/lib/analytics";
+import { Search, Eye, TrendingUp, ThumbsUp, ThumbsDown, Clock } from "lucide-react";
 
 export default async function AnalyticsPage() {
-  const [searches, views, totals, feedback] = await Promise.all([
+  const [searches, views, totals, feedback, recent] = await Promise.all([
     getTopSearches(10),
     getTopViews(10),
     getTotalCounts(),
     getFeedbackStats(),
+    getRecentSearches(20),
   ]);
 
   return (
@@ -85,6 +86,31 @@ export default async function AnalyticsPage() {
             </ul>
           )}
         </div>
+      </div>
+
+      <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden mb-6">
+        <div className="flex items-center gap-2 px-5 py-3 border-b border-gray-100 bg-gray-50">
+          <Clock className="w-4 h-4 text-morgan-blue" />
+          <h2 className="font-semibold text-morgan-blue text-sm">Recent Searches</h2>
+          <span className="ml-auto text-xs text-gray-400">latest 20, newest first</span>
+        </div>
+        {recent.length === 0 ? (
+          <p className="text-gray-400 text-sm px-5 py-6 text-center">No searches recorded yet.</p>
+        ) : (
+          <ul className="divide-y divide-gray-50">
+            {recent.map((row, i) => (
+              <li key={i} className="flex items-center justify-between px-5 py-2.5">
+                <span className="text-sm text-gray-700">{row.value}</span>
+                <span className="text-xs text-gray-400">
+                  {new Date(row.created_at).toLocaleString("en-US", {
+                    month: "short", day: "numeric",
+                    hour: "numeric", minute: "2-digit", hour12: true,
+                  })}
+                </span>
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
 
       <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">

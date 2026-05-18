@@ -112,6 +112,28 @@ export async function getTopViews(limit = 10): Promise<StatRow[]> {
   }
 }
 
+export interface RecentSearchRow {
+  value: string;
+  created_at: string;
+}
+
+export async function getRecentSearches(limit = 20): Promise<RecentSearchRow[]> {
+  try {
+    await ensureTable();
+    const { rows } = await pool.query<RecentSearchRow>(
+      `SELECT value, created_at
+       FROM analytics
+       WHERE event_type = 'search'
+       ORDER BY created_at DESC
+       LIMIT $1`,
+      [limit]
+    );
+    return rows;
+  } catch {
+    return [];
+  }
+}
+
 export async function getTotalCounts(): Promise<{ searches: number; views: number }> {
   try {
     await ensureTable();
